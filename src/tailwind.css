@@ -1,0 +1,188 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .nav-link {
+    @apply
+    text-gray-500
+    hover:text-gray-800
+    transition-all
+  }
+
+  .action-link {
+    @apply
+    border-2
+    bg-red-50
+    border-red-500
+    text-red-500
+    p-5
+    w-full
+    text-2xl
+    transition-all
+    hover:bg-red-500
+    hover:text-white
+    hover:fill-white
+    my-2
+    flex
+    flex-col
+    items-center
+  }
+
+  .input-group {
+    @apply
+    flex
+    flex-col
+    my-3
+  }
+
+  .checkbox-group {
+    @apply
+    flex
+    my-3
+  }
+
+  .checkbox-group input {
+    @apply
+    mr-2
+    w-4
+  }
+
+  .input {
+    @apply
+    my-2 block px-3 py-2 bg-white border border-slate-300 text-sm shadow-sm placeholder-slate-400
+    focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500 rounded-lg
+  }
+
+  .input-group input {
+    @apply
+    my-2 block px-3 py-2 bg-white border border-slate-300 text-sm shadow-sm placeholder-slate-400
+    focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500 rounded-lg
+  }
+
+  .input-group select {
+    @apply
+    my-2 block
+     px-3 py-2 bg-white border border-slate-300 text-sm shadow-sm placeholder-slate-400
+    focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500 rounded-lg
+  }
+
+  .track-btn {
+    @apply
+    text-white
+    bg-red-500
+    px-5 py-2
+    transition-all
+    hover:bg-red-600
+    rounded-lg
+  }
+
+  .blue-btn {
+    @apply
+    bg-[#1e8ee9]
+    text-white
+    px-5 py-2
+    transition-all
+    hover:bg-[#104e80]
+  }
+
+  .red-btn {
+    @apply
+    bg-[#e92e0e]
+    text-white
+    px-5 py-2
+    transition-all
+    hover:bg-[#801a08]
+  }
+
+  table {
+    @apply
+    w-full
+    border
+    border-collapse
+    border-[#dee2e6]
+  }
+
+  table thead {
+    @apply
+    text-white
+    bg-[#343a40]
+  }
+
+  table tr th {
+    @apply
+    p-3
+    text-left
+    border
+    border-[#454d55]
+  }
+
+  table tr td {
+    @apply
+    p-3
+    border
+    border-[#dee2e6]
+  }
+
+  table tr td input, select {
+    @apply
+    my-2 block w-full px-3 py-2 bg-white border border-slate-300 text-sm shadow-sm placeholder-slate-400
+    focus:outline-none focus:border-slate-500 focus:ring-1 focus:ring-slate-500
+  }
+
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  
+  /* Firefox */
+  input[type=number] {
+    -moz-appearance: textfield;
+  }
+
+  .pagination-btn {
+    @apply w-8 h-8 xl:w-10 xl:h-10 bg-white border border-red-500 text-red-500 text-xs xl:text-sm hover:bg-red-500 hover:text-white;
+  }
+
+  .pagination-edges {
+    @apply w-8 h-8 xl:w-10 xl:h-10 flex items-center justify-center border-b border-transparent disabled:grayscale disabled:cursor-not-allowed;
+  }
+
+  .pagination-btn.active {
+    @apply text-white bg-red-500;
+  }
+
+  .show-btn {
+    @apply bg-gray-400 text-white px-4 py-2 mr-2 transition-all hover:bg-gray-500
+  }
+
+  .edit-btn {
+    @apply bg-slate-500 text-white p-2 mr-2 transition-all hover:bg-slate-700
+  }
+
+	.alert {
+		@apply fixed z-[6000] top-0 left-0 right-0 bottom-0 bg-gray-300/60 backdrop-blur-sm flex items-center justify-center;
+	}
+
+  .modal {
+    @apply fixed z-[6000] top-0 left-0 right-0 bottom-0 bg-gray-600 bg-opacity-60 backdrop-blur-sm flex items-center justify-center;
+  }
+
+  .blue-heading {
+    @apply my-5 text-blue-600 bg-blue-500 p-3
+  }
+
+  .red-heading {
+    @apply my-5 text-red-800 bg-red-300 p-3
+  }
+
+  .radio {
+    @apply appearance-none rounded-full h-4 w-4 border border-gray-300 bg-white checked:bg-red-500 checked:border-red-500 focus:outline-none transition duration-600 mt-1 align-top bg-no-repeat bg-center bg-contain float-left mr-2 cursor-pointer focus:ring-2 focus:ring-offset-2 focus:ring-red-500
+  }
+
+  .active {
+    @apply text-red-500 font-bold
+  }
+  
+}
