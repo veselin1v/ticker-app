@@ -1,14 +1,14 @@
 <template>
 	<div>
 		<Header></Header>
-		<div class="container mx-auto max-h-screen py-10 px-20">
+		<div class="container mx-auto max-h-screen p-10">
 			<router-view />
 		</div>
 	</div>
 </template>
 
 <script>
-import Header from '../components/Header.vue'
+import Header from '../components/Menu.vue'
 
 export default {
 	components: {

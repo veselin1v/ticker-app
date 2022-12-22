@@ -1,7 +1,7 @@
 <template>
     <div>
         <form @submit.prevent="passwordForgot(email)">
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>E-Mail Adresse</label>
                 <input type="email" v-model="email" required>
             </div>

@@ -1,11 +1,11 @@
 <template>
     <div>
         <form @submit.prevent="login(credentials)">
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Email</label>
                 <input type="email" v-model="credentials.email" required>
             </div>
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Password</label>
                 <input type="password" v-model="credentials.password" required>
             </div>
@@ -17,7 +17,7 @@
                <button type="submit" class="track-btn mr-5">
                     Login
                 </button>
-                <router-link :to="{ name: 'passwordForgot' }" class="text-red-500 transition-all hover:text-red-600 hover:underline">
+                <router-link :to="{ name: 'passwordForgot' }" class="text-orange-500 transition-all hover:text-orange-600 hover:underline">
                     Forgot password
                 </router-link>
             </div>

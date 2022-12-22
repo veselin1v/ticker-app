@@ -1,6 +1,8 @@
 <template>
     <div>
-        <h1>Dashboard</h1>
+        <router-link to="#" @click="logout" class="nav-link">
+            Logout
+        </router-link>
     </div>
 </template>
 
@@ -8,11 +10,10 @@
 import { mapActions } from 'vuex'
 export default {
     data() {
-        return {
-        }
+        return {}
     },
     methods: {
-
+        ...mapActions(['logout'])
     }
 }
 </script>

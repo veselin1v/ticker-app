@@ -1,19 +1,19 @@
 <template>
     <div>
         <form @submit.prevent="register(data)">
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Name</label>
                 <input type="text" v-model="data.name" required>
             </div>
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Email</label>
                 <input type="email" v-model="data.email" required>
             </div>
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Password</label>
                 <input type="password" v-model="data.password" required>
             </div>
-            <div class="input-group w-1/3">
+            <div class="input-group">
                 <label>Confirm password</label>
                 <input type="password" v-model="data.password_confirmation" required>
             </div>

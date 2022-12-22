@@ -6,6 +6,7 @@ import Register from '../views/auth/Register.vue'
 import PasswordForgot from '../views/auth/PasswordForgot.vue'
 import Dashboard from '../views/Dashboard.vue'
 import PortfolioIndex from '../views/portfolio/Index.vue'
+import Account from '../views/Account.vue'
 
 const routes = [
     {
@@ -48,6 +49,15 @@ const routes = [
         path: '/portfolio',
         name: 'portfolioIndex',
         component: PortfolioIndex,
+        meta: {
+            auth: true,
+            layout: 'default',
+        }
+    },
+    {
+        path: '/account',
+        name: 'account',
+        component: Account,
         meta: {
             auth: true,
             layout: 'default',

@@ -1,5 +1,24 @@
 <template>
-    <header class="shadow-md">
+	<section v-if="user" class="block fixed inset-x-0 bottom-0 z-10 bg-white shadow py-4 px-7 border-t">
+		<div id="tabs" class="flex justify-between itemst-center">
+            <router-link :to="{ name: 'dashboard'}" class="flex flex-col items-center">
+                <icon-dashboard class="w-6" />
+                <span class="text-xs mt-2">Dashboard</span>
+            </router-link>
+            <router-link :to="{ name: 'portfolioIndex'}" class="flex flex-col items-center">
+                <icon-chart class="w-6" />
+                <span class="text-xs mt-2">Portfolio</span>
+            </router-link>
+            <router-link :to="{ name: 'account'}" class="flex flex-col items-center">
+                <icon-account class="w-6" />
+                <span class="text-xs mt-2">Account</span>
+            </router-link>
+            <!-- <router-link to="#" @click="logout" class="nav-link">
+                Logout
+            </router-link> -->
+        </div>
+    </section>
+    <!-- <header class="shadow-md">
         <nav class="container mx-auto flex justify-between items-center px-20 py-6">
             <div class="brand">
                 <router-link :to="{ name: 'dashboard'}" class="nav-link">
@@ -26,7 +45,7 @@
                 </router-link>
             </div>
         </nav>
-    </header>
+    </header> -->
 </template>
 
 <script>

@@ -12,39 +12,67 @@
             </form>
         </Modal>
         <Modal v-if="showAssetModal" @close-modal="closeAssetModal" title="Add new asset">
-            <form @submit.prevent="storeAsset(assetData);closeAssetModal()">
-                <!-- <div class="input-group">
+            <form @submit.prevent="assetData.portfolio_id = portfolio.id;storeAsset(assetData);closeAssetModal()">
+                <div class="input-group mb-5">
                     <label>Asset ticker or name</label>
-                    <input type="text" placeholder="Enter asset ticker or name" v-model="assetData.asset" required>
+                    <vue3-simple-typeahead
+                        placeholder="Enter asset ticker or name" 
+                        v-model="assetData.asset"
+                        @input="searchTicker(assetData.asset)"
+                        :itemProjection="itemProjection"
+                        @selectItem="selectItemEventHandler"
+                        required
+                        :items="tickers"
+                        :minInputLength="1"
+                    />
+                </div>
+                <div class="input-group">
+                    <label>Quantity</label>
+                    <input type="number" step="0.01" placeholder="Enter quantity" v-model="assetData.quantity" required>
                 </div>
                 <div class="input-group">
                     <label>Price per share</label>
-                    <input type="number" placeholder="Enter price per share" v-model="assetData.price" required>
-                </div> -->
-                <vue3-simple-typeahead
-                    id="typeahead_id"
-                    placeholder="Start writing..."
-                    :items="['One','Two','Three']"
-                    :minInputLength="1"
-                    :itemProjection="itemProjectionFunction"
-                    @selectItem="selectItemEventHandler"
-                    @onInput="onInputEventHandler"
-                    @onFocus="onFocusEventHandler"
-                    @onBlur="onBlurEventHandler"
-                >
-                </vue3-simple-typeahead>
+                    <input type="number" step="0.01" placeholder="Enter price per share" v-model="assetData.price" required>
+                </div>
                 <div class="text-center">
                     <button class="track-btn mt-10">Add asset</button>
                 </div>
             </form>
         </Modal>
         <div class="flex flex-col">
-            <span>Name: {{ portfolios.name }}</span>
-            <span>Balance: {{ portfolios.balance }}</span>
-            <button class="track-btn" @click="showAssetModal = true">Add asset</button>
+            <span>Name: {{ portfolio.name }}</span>
+            <span>Balance: {{ portfolio.balance }}</span>
         </div>
-        <div class="text-center absolute bottom-20">
-            <button class="track-btn text-2xl" @click="showPortfolioModal = true">Add new porftolio</button>
+        <table class="table-auto w-full mt-10" v-if="portfolio.assets && portfolio.assets.length">
+            <thead>
+                <tr>
+                    <th>Asset</th>
+                    <th class="text-right">Holdings</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="asset in portfolio.assets">
+                    <td>
+                        <ul>
+                            <li>{{ asset.ticker.ticker }}</li>
+                            <li class="text-xs">{{ asset.quantity }} shares</li>
+                        </ul>
+                    </td>
+                    <td class="text-right">
+                        <ul>
+                            <li>${{ asset.position_worth }}</li>
+                            <li class="text-xs">
+                                <span :class="[asset.profit > 0 ? 'green' : 'red']">${{ asset.profit }}</span><span class="gray mx-1">|</span>
+                                <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi }}%</span>
+                            </li>
+                        </ul>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="fixed bottom-28 left-1/2 -translate-x-1/2 whitespace-nowrap">
+            <button v-if="Object.keys(portfolio).length === 0" class="track-btn text-xl" @click="showPortfolioModal = true">Add new porftolio</button>
+            <button v-else class="track-btn text-xl" @click="showAssetModal = true">Add asset</button>
         </div>
     </div>
 </template>
@@ -52,8 +80,6 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import Modal from '../../components/Modal.vue'
-import SimpleTypeahead from 'vue3-simple-typeahead'
-import 'vue3-simple-typeahead/dist/vue3-simple-typeahead.css'; //Optional default CSS
 export default {
     data() {
         return {
@@ -61,13 +87,16 @@ export default {
             showAssetModal: false,
             name: '',
             assetData: {
+                portfolio_id: '',
+                ticker_id: '',
                 asset: '',
+                quantity: '',
                 price: ''
             }
         }
     },
     created() {
-        this.getPortfolios()
+        this.getPortfolio()
     },
     methods: {
         closePortfolioModal() {
@@ -75,15 +104,21 @@ export default {
         },
         closeAssetModal() {
             this.showAssetModal = false
+            this.assetData = {}
         },
-        ...mapActions(['storePortfolio', 'getPortfolios'])
+        itemProjection(item) {
+            return item.name
+        },
+        selectItemEventHandler(item) {
+            this.assetData.ticker_id = item.id
+        },
+        ...mapActions(['storePortfolio', 'getPortfolio', 'searchTicker', 'storeAsset', 'getTickerId'])
     },
     computed: {
-        ...mapGetters(['portfolios'])
+        ...mapGetters(['portfolio', 'tickers'])
     },
     components: {
-        Modal: Modal,
-        SimpleTypeahead: SimpleTypeahead
+        Modal: Modal
     },
 }
 </script>
