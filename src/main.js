@@ -16,6 +16,7 @@ import IconSpinner from './components/icons/Spinner.vue'
 import IconDashboard from './components/icons/Dashboard.vue'
 import IconChart from './components/icons/Chart.vue'
 import IconAccount from './components/icons/Account.vue'
+import IconFunds from './components/icons/Funds.vue'
 
 axios.defaults.withCredentials = true
 axios.defaults.headers.common['X-Requested-With'] = 'XMLHttpRequest'
@@ -36,5 +37,6 @@ app.component('icon-spinner', IconSpinner)
 app.component('icon-dashboard', IconDashboard)
 app.component('icon-chart', IconChart)
 app.component('icon-account', IconAccount)
+app.component('icon-funds', IconFunds)
 
 app.mount('#app')

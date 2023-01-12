@@ -51,6 +51,7 @@ export default {
           router.push({ name: 'login' })
           commit('setUser', null)
           localStorage.removeItem('user')
+          localStorage.removeItem('portfolio_id')
         },
         checkAuth({ }) {
           return axios.get('/api/check/auth')

@@ -32,7 +32,7 @@ export default {
         return {
             credentials: {
                 email: 'vesko@gmail.com',
-                password: '12345678',
+                password: 'password',
                 remember: false
             }
         }

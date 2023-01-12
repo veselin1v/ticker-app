@@ -11,8 +11,18 @@ export default {
         return {
         }
     },
+    created() {
+        const portfolio_id = localStorage.getItem('portfolio_id')
+        if (portfolio_id == null) {
+                this.getPortfolio().then(res => {
+                if (Object.keys(res).length !== 0) {
+                    localStorage.setItem('portfolio_id', res.id)
+                }
+            })
+        }
+    },
     methods: {
-
+        ...mapActions(['getPortfolio'])
     }
 }
 </script>

@@ -39,28 +39,32 @@
                 </div>
             </form>
         </Modal>
-        <div class="flex flex-col">
-            <span>Name: {{ portfolio.name }}</span>
-            <span>Balance: {{ portfolio.balance }}</span>
+        <div class="flex flex-col text-center">
+            <span class="dark:text-white border-b pb-1 mb-1">{{ portfolio.name }}</span>
+            <div>
+                <span class="dark:text-white mr-2 text-lg">${{ portfolio.equity }}</span>
+                <span class="text-sm" :class="[portfolio.profit > 0 ? 'green' : 'red']">${{ portfolio.profit }}</span><span class="gray mx-1 text-sm">|</span>
+                <span class="text-sm" :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi }}%</span>
+            </div>
         </div>
         <table class="table-auto w-full mt-10" v-if="portfolio.assets && portfolio.assets.length">
             <thead>
                 <tr>
-                    <th>Asset</th>
-                    <th class="text-right">Holdings</th>
+                    <th class="dark:text-white">Asset</th>
+                    <th class="text-right dark:text-white">Holdings</th>
                 </tr>
             </thead>
             <tbody>
                 <tr v-for="asset in portfolio.assets">
                     <td>
                         <ul>
-                            <li>{{ asset.ticker.ticker }}</li>
-                            <li class="text-xs">{{ asset.quantity }} shares</li>
+                            <li class="dark:text-white">{{ asset.ticker.ticker }}</li>
+                            <li class="text-xs dark:text-white">{{ asset.quantity }} shares</li>
                         </ul>
                     </td>
                     <td class="text-right">
                         <ul>
-                            <li>${{ asset.position_worth }}</li>
+                            <li class="dark:text-white">${{ asset.position_worth }}</li>
                             <li class="text-xs">
                                 <span :class="[asset.profit > 0 ? 'green' : 'red']">${{ asset.profit }}</span><span class="gray mx-1">|</span>
                                 <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi }}%</span>
@@ -79,7 +83,7 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import Modal from '../../components/Modal.vue'
+import Modal from '../components/Modal.vue'
 export default {
     data() {
         return {
@@ -96,7 +100,12 @@ export default {
         }
     },
     created() {
-        this.getPortfolio()
+        const portfolio_id = localStorage.getItem('portfolio_id')
+        if (portfolio_id != null) {
+            this.updatePortfolio(portfolio_id).then(() => {
+                this.getPortfolio()   
+            })
+        }
     },
     methods: {
         closePortfolioModal() {
@@ -112,7 +121,7 @@ export default {
         selectItemEventHandler(item) {
             this.assetData.ticker_id = item.id
         },
-        ...mapActions(['storePortfolio', 'getPortfolio', 'searchTicker', 'storeAsset', 'getTickerId'])
+        ...mapActions(['storePortfolio', 'getPortfolio', 'searchTicker', 'storeAsset', 'getTickerId', 'updatePortfolio'])
     },
     computed: {
         ...mapGetters(['portfolio', 'tickers'])

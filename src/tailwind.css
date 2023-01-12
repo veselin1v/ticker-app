@@ -126,4 +126,18 @@
     @apply
     text-gray-500
   }
+
+  .menu-link {
+    @apply
+    flex
+    flex-col
+    items-center
+    focus:text-orange-500
+    focus:fill-orange-500
+  }
+
+  .dark {
+    @apply
+    bg-[#121212]
+  }
 }
