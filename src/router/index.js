@@ -6,7 +6,7 @@ import Register from '../views/auth/Register.vue'
 import PasswordForgot from '../views/auth/PasswordForgot.vue'
 import Dashboard from '../views/Dashboard.vue'
 import Portfolio from '../views/Portfolio.vue'
-import DividendIndex from '../views/dividend/Index.vue'
+import Dividends from '../views/Dividends.vue'
 import Account from '../views/Account.vue'
 
 const routes = [
@@ -57,8 +57,8 @@ const routes = [
     },
     {
         path: '/dividends',
-        name: 'dividendIndex',
-        component: DividendIndex,
+        name: 'dividends',
+        component: Dividends,
         meta: {
             auth: true,
             layout: 'default',

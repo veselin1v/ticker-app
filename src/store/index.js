@@ -5,6 +5,7 @@ import Alert from '../store/modules/alert'
 import Portfolio from '../store/modules/portfolio'
 import Ticker from '../store/modules/ticker'
 import Asset from '../store/modules/asset'
+import Dividend from '../store/modules/dividend'
 
 const store = createStore({
     modules: {
@@ -12,7 +13,8 @@ const store = createStore({
         Alert,
         Portfolio,
         Ticker,
-        Asset
+        Asset,
+        Dividend
     }
 })
 

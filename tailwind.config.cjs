@@ -4,7 +4,9 @@ module.exports = {
   darkMode: 'class',
   theme: {
     extend: {
-      colors: {
+      boxShadow: {
+        'green-600': '0 0 150px 1px rgba(22, 163, 74, 1)',
+        'red-500': '0 0 150px 1px rgba(229, 68, 68, 1)'
       }
     }
   },

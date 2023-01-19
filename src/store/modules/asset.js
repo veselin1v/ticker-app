@@ -25,7 +25,9 @@ export default {
             const res = await axios.post('/api/assets', data)
             if (res.status == 200) {
                 commit('setAlert', { type: 'success', message: res.data.message })
-                dispatch('getPortfolio')
+                dispatch('updatePortfolio', localStorage.getItem('portfolio_id')).then(() => {
+                    dispatch('getPortfolio') 
+                })
             }
         }
     }

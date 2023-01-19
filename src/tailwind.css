@@ -138,6 +138,10 @@
 
   .dark {
     @apply
-    bg-[#121212]
+    bg-[#202020]
+  }
+
+  .badge {
+    @apply inline-block bg-gray-100 rounded-lg px-3 py-1 text-sm
   }
 }

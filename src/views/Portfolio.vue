@@ -39,12 +39,12 @@
                 </div>
             </form>
         </Modal>
-        <div class="flex flex-col text-center">
-            <span class="dark:text-white border-b pb-1 mb-1">{{ portfolio.name }}</span>
-            <div>
-                <span class="dark:text-white mr-2 text-lg">${{ portfolio.equity }}</span>
-                <span class="text-sm" :class="[portfolio.profit > 0 ? 'green' : 'red']">${{ portfolio.profit }}</span><span class="gray mx-1 text-sm">|</span>
-                <span class="text-sm" :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi }}%</span>
+        <div class="rounded overflow-hidden shadow-lg" :class="[portfolio.profit > 0 ? 'shadow-green-600' : 'shadow-red-500']" v-if="portfolio.assets && portfolio.assets.length">
+            <div class="px-6 py-4 flex flex-col">
+                <div class="flex justify-between mb-2"><span class="dark:text-white">Portfolio</span> <span class="badge">{{  portfolio.name }}</span></div>
+                <div class="flex justify-between mb-2"><span class="dark:text-white">Equity</span> <span class="badge">${{ portfolio.equity.toFixed(2) }}</span></div>
+                <div class="flex justify-between mb-2"><span class="dark:text-white">Profit</span> <span class="badge" :class="[portfolio.profit > 0 ? 'green' : 'red']">{{ formatAmount(portfolio.profit) }}</span></div>
+                <div class="flex justify-between"><span class="dark:text-white">ROI</span> <span class="badge" :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi.toFixed(2) }}%</span></div>
             </div>
         </div>
         <table class="table-auto w-full mt-10" v-if="portfolio.assets && portfolio.assets.length">
@@ -66,8 +66,8 @@
                         <ul>
                             <li class="dark:text-white">${{ asset.position_worth }}</li>
                             <li class="text-xs">
-                                <span :class="[asset.profit > 0 ? 'green' : 'red']">${{ asset.profit }}</span><span class="gray mx-1">|</span>
-                                <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi }}%</span>
+                                <span :class="[asset.profit > 0 ? 'green' : 'red']">{{ formatAmount(asset.profit) }}</span><span class="gray mx-1">|</span>
+                                <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi.toFixed(2) }}%</span>
                             </li>
                         </ul>
                     </td>
@@ -120,6 +120,14 @@ export default {
         },
         selectItemEventHandler(item) {
             this.assetData.ticker_id = item.id
+        },
+        formatAmount(amount) {
+            if (amount) {
+                if (amount.toString().substring(0, 1) === '-') {
+                    return '-$' + amount.toFixed(2).toString().substring(1)
+                }
+            }
+            return '$' + amount.toFixed(2)
         },
         ...mapActions(['storePortfolio', 'getPortfolio', 'searchTicker', 'storeAsset', 'getTickerId', 'updatePortfolio'])
     },

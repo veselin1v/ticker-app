@@ -1,7 +1,7 @@
 <template>
 	<div>
 		<Header></Header>
-		<div class="container mx-auto max-h-screen p-10">
+		<div class="container mx-auto mb-36 p-10">
 			<router-view />
 		</div>
 	</div>
