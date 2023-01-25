@@ -2,16 +2,16 @@
     <div>
         <form @submit.prevent="login(credentials)">
             <div class="input-group">
-                <label>Email</label>
+                <label class="dark:text-white">Email</label>
                 <input type="email" v-model="credentials.email" required>
             </div>
             <div class="input-group">
-                <label>Password</label>
+                <label class="dark:text-white">Password</label>
                 <input type="password" v-model="credentials.password" required>
             </div>
             <div class="checkbox-group mt-2 mb-5">
                 <input class="mr-5" type="checkbox" v-model="credentials.remember">
-                <label>Remember me</label>
+                <label class="dark:text-white">Remember me</label>
             </div>
             <div class="flex items-center mt-10">
                <button type="submit" class="track-btn mr-5">

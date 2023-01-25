@@ -50,8 +50,18 @@
         <table class="table-auto w-full mt-10" v-if="portfolio.assets && portfolio.assets.length">
             <thead>
                 <tr>
-                    <th class="dark:text-white">Asset</th>
-                    <th class="text-right dark:text-white">Holdings</th>
+                    <th class="dark:text-white">
+                        <div class="flex">
+                            <span>Asset</span>
+                            <icon-filter class="w-5 dark:fill-white" @click="sortByAsset();changeSortTickerDirection()"/>
+                        </div>
+                    </th>
+                    <th class="dark:text-white">
+                        <div class="flex justify-end">
+                            <span>Holdings</span>
+                            <icon-filter class="w-5 dark:fill-white" @click="sortByHolding();changeSortHoldingDirection()"/>
+                        </div>
+                    </th>
                 </tr>
             </thead>
             <tbody>
@@ -96,14 +106,16 @@ export default {
                 asset: '',
                 quantity: '',
                 price: ''
-            }
+            },
+            sortTicker: 'asc',
+            sortHolding: 'desc'
         }
     },
     created() {
         const portfolio_id = localStorage.getItem('portfolio_id')
         if (portfolio_id != null) {
             this.updatePortfolio(portfolio_id).then(() => {
-                this.getPortfolio()   
+                this.getPortfolio()
             })
         }
     },
@@ -128,6 +140,52 @@ export default {
                 }
             }
             return '$' + amount.toFixed(2)
+        },
+        sortByAsset() {
+            this.portfolio.assets.sort(function(a,b) {
+                if (this.sortTicker == 'asc') {
+                    return ( ( a.ticker.ticker == b.ticker.ticker ) ? 0 : ( ( a.ticker.ticker > b.ticker.ticker ) ? 1 : -1 ) )
+                }
+                if (this.sortTicker == 'desc') {
+                    return ( ( a.ticker.ticker == b.ticker.ticker ) ? 0 : ( ( a.ticker.ticker < b.ticker.ticker ) ? 1 : -1 ) )
+                }
+            }.bind(this))
+        },
+        sortByHolding() {
+            this.portfolio.assets.sort(function(a,b) {
+                if (this.sortHolding == 'asc') {
+                    return ( ( a.position_worth == b.position_worth ) ? 0 : ( ( a.position_worth > b.position_worth ) ? 1 : -1 ) )
+                }
+                if (this.sortHolding == 'desc') {
+                    return ( ( a.position_worth == b.position_worth ) ? 0 : ( ( a.position_worth < b.position_worth ) ? 1 : -1 ) )
+                }
+            }.bind(this))
+        },
+        changeSortTickerDirection() {
+            if (this.sortTicker == 'asc') {
+                this.sortTicker = 'desc'
+            } else {
+                this.sortTicker = 'asc'
+            }
+        },
+        changeSortHoldingDirection() {
+            if (this.sortHolding == 'asc') {
+                this.sortHolding = 'desc'
+            } else {
+                this.sortHolding = 'asc'
+            }
+        },
+        sortByPrice() {
+            console.log(this.portfolio.assets)
+            this.portfolio.assets.sort(function (a, b) {
+                if (a.position_worth < b.position_worth) {
+                    return 1;
+                }
+                if (a.position_worth > b.position_worth) {
+                    return -1;
+                }
+                return 0;
+            });
         },
         ...mapActions(['storePortfolio', 'getPortfolio', 'searchTicker', 'storeAsset', 'getTickerId', 'updatePortfolio'])
     },

@@ -1,7 +1,7 @@
 <template>
     <div class="text-center">
         <h1 class="text-lg text-orange-500 mb-5">Calendar</h1>
-        <Calendar :attributes=attributes is-dark is-expanded />
+        <Calendar class="dark:dark dark:text-white" :attributes=attributes is-expanded />
     </div>
     <div class="text-center my-10">
         <h1 class="text-lg text-orange-500 mb-5">Upcoming</h1>
@@ -17,11 +17,35 @@
                     <td class="text-left">
                         <ul>
                             <li class="dark:text-white">{{ dividend.ticker }}</li>
-                            <li class="text-xs dark:text-white">${{ dividend.amount }} per share</li>
+                            <li class="text-xs dark:text-white">${{ dividend.amount.toFixed(2) }} per share</li>
                         </ul>
                     </td>
                     <td class="text-right">
-                      <span class="dark:text-white">{{ dividend.date }}</span>
+                      <span class="dark:text-white">{{ dividend.date_format }}</span>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    <div class="text-center my-10">
+        <h1 class="text-lg text-orange-500 mb-5">Received</h1>
+        <table class="table-auto w-full" v-if="receivedDividends.length">
+            <thead>
+                <tr>
+                    <th class="dark:text-white pt-0">Asset</th>
+                    <th class="text-right dark:text-white pt-0">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="dividend in receivedDividends">
+                    <td class="text-left">
+                        <ul>
+                            <li class="dark:text-white">{{ dividend.ticker }}</li>
+                            <li class="text-xs dark:text-white">${{ dividend.amount.toFixed(2) }} received</li>
+                        </ul>
+                    </td>
+                    <td class="text-right">
+                      <span class="dark:text-white">{{ dividend.received_at_format }}</span>
                     </td>
                 </tr>
             </tbody>
@@ -69,7 +93,7 @@ export default {
         ]
       }
     },
-    ...mapGetters(['upcomingDividends'])
+    ...mapGetters(['upcomingDividends', 'receivedDividends'])
   }
 }
 </script>
