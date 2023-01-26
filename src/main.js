@@ -14,7 +14,7 @@ import IconCheckCircle from './components/icons/CheckCircle.vue'
 import IconAttentionCircle from './components/icons/AttentionCircle.vue'
 import IconSpinner from './components/icons/Spinner.vue'
 import IconDashboard from './components/icons/Dashboard.vue'
-import IconChart from './components/icons/Chart.vue'
+import IconWallet from './components/icons/Wallet.vue'
 import IconAccount from './components/icons/Account.vue'
 import IconFunds from './components/icons/Funds.vue'
 import IconFilter from './components/icons/Filter.vue'
@@ -36,7 +36,7 @@ app.component('icon-check-circle', IconCheckCircle)
 app.component('icon-attention-circle', IconAttentionCircle)
 app.component('icon-spinner', IconSpinner)
 app.component('icon-dashboard', IconDashboard)
-app.component('icon-chart', IconChart)
+app.component('icon-wallet', IconWallet)
 app.component('icon-account', IconAccount)
 app.component('icon-funds', IconFunds)
 app.component('icon-filter', IconFilter)
