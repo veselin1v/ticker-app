@@ -17,7 +17,7 @@
                <button type="submit" class="track-btn mr-5">
                     Login
                 </button>
-                <router-link :to="{ name: 'passwordForgot' }" class="text-orange-500 transition-all hover:text-orange-600 hover:underline">
+                <router-link :to="{ name: 'passwordForgot' }" class="text-brown transition-all hover:text-orange-600 hover:underline">
                     Forgot password
                 </router-link>
             </div>

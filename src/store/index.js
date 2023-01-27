@@ -6,6 +6,7 @@ import Portfolio from '../store/modules/portfolio'
 import Ticker from '../store/modules/ticker'
 import Asset from '../store/modules/asset'
 import Dividend from '../store/modules/dividend'
+import Trade from '../store/modules/trade'
 
 const store = createStore({
     modules: {
@@ -14,7 +15,8 @@ const store = createStore({
         Portfolio,
         Ticker,
         Asset,
-        Dividend
+        Dividend,
+        Trade
     }
 })
 

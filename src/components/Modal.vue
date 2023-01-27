@@ -6,13 +6,13 @@
 			leave-active-class="duration-50 ease-in"
 			leave-to-class="scale-0 opacity-0"
 			>
-			<div class="max-h-[95%] max-w-[90%] bg-white shadow-2xl overflow-auto rounded-lg">
-				<div class="flex items-start justify-between px-5 pt-5 pb-3 bg-gray-50 rounded-t-xl">
-					<div class="pr-5">
-						<h3 v-if="title" class="text-xl font-semibold">
+			<div class="max-h-[95%] max-w-[90%] dark:dark overflow-auto rounded-lg">
+				<div class="flex items-start justify-between px-5 pt-5 pb-3 dark:dark rounded-t-xl border-b">
+					<div class="pr-5 ">
+						<h3 v-if="title" class="text-xl text-white font-semibold">
 							{{ title }}
 						</h3>
-						<div v-if="subtitle" class="max-w-[600px] text-sm text-gray-500">
+						<div v-if="subtitle" class="max-w-[600px] text-sm text-white">
 							{{ subtitle }}
 						</div>
 					</div>

@@ -8,6 +8,7 @@ import Dashboard from '../views/Dashboard.vue'
 import Portfolio from '../views/Portfolio.vue'
 import Dividends from '../views/Dividends.vue'
 import Account from '../views/Account.vue'
+import Asset from '../views/Asset.vue'
 
 const routes = [
     {
@@ -68,6 +69,15 @@ const routes = [
         path: '/account',
         name: 'account',
         component: Account,
+        meta: {
+            auth: true,
+            layout: 'default',
+        }
+    },
+    {
+        path: '/assets/:id',
+        name: 'assets',
+        component: Asset,
         meta: {
             auth: true,
             layout: 'default',

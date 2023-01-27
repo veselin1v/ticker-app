@@ -39,15 +39,32 @@
                 </div>
             </form>
         </Modal>
-        <div class="rounded overflow-hidden shadow-lg" :class="[portfolio.profit > 0 ? 'shadow-green-600' : 'shadow-red-500']" v-if="portfolio.assets && portfolio.assets.length">
-            <div class="px-6 py-4 flex flex-col">
-                <div class="flex justify-between mb-2"><span class="dark:text-white">Portfolio</span> <span class="badge">{{  portfolio.name }}</span></div>
-                <div class="flex justify-between mb-2"><span class="dark:text-white">Equity</span> <span class="badge">${{ portfolio.equity.toFixed(2) }}</span></div>
-                <div class="flex justify-between mb-2"><span class="dark:text-white">Profit</span> <span class="badge" :class="[portfolio.profit > 0 ? 'green' : 'red']">{{ formatAmount(portfolio.profit) }}</span></div>
-                <div class="flex justify-between"><span class="dark:text-white">ROI</span> <span class="badge" :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi.toFixed(2) }}%</span></div>
+        <div class="text-center">
+            <h1 class="text-brown text-xl">{{ portfolio.name }}</h1>
+        </div>
+        <div class="dark:text-white flex justify-between border-y py-4 my-8">
+            <div class="flex flex-col gap-1">
+                <div class="flex justify-between">
+                    <span class="mr-3">Equity:</span>
+                    <span>${{ portfolio.equity }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="mr-3">Invested:</span>
+                    <span>${{ portfolio.invested }}</span>
+                </div>
+            </div>
+            <div class="flex flex-col gap-1">
+                <div class="flex justify-between">
+                    <span class="mr-3">Profit:</span>
+                    <span :class="[portfolio.profit > 0 ? 'green' : 'red']">{{ formatAmount(portfolio.profit) }}</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="mr-3">ROI:</span>
+                    <span :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi != null ? portfolio.roi.toFixed(2) : null }}%</span>
+                </div>
             </div>
         </div>
-        <table class="table-auto w-full mt-10" v-if="portfolio.assets && portfolio.assets.length">
+        <table class="table-auto w-full" v-if="portfolio.assets && portfolio.assets.length">
             <thead>
                 <tr>
                     <th class="dark:text-white">
@@ -65,7 +82,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="asset in portfolio.assets">
+                <tr v-for="asset in portfolio.assets" @click="$router.push({ name: 'assets', params: { id: asset.id } })">
                     <td>
                         <ul>
                             <li class="dark:text-white">{{ asset.ticker.ticker }}</li>
@@ -86,7 +103,7 @@
         </table>
         <div class="fixed bottom-28 left-1/2 -translate-x-1/2 whitespace-nowrap">
             <button v-if="Object.keys(portfolio).length === 0" class="track-btn text-xl" @click="showPortfolioModal = true">Add new porftolio</button>
-            <button v-else class="track-btn text-xl" @click="showAssetModal = true">Add asset</button>
+            <button v-else class="track-btn text-lg" @click="showAssetModal = true">Add asset</button>
         </div>
     </div>
 </template>
@@ -115,7 +132,18 @@ export default {
         const portfolio_id = localStorage.getItem('portfolio_id')
         if (portfolio_id != null) {
             this.updatePortfolio(portfolio_id).then(() => {
-                this.getPortfolio()
+                this.getPortfolio().then(() => {
+                    const sortBy = localStorage.getItem('sortBy')
+                    if (sortBy != null) {
+                        if (sortBy == 'asset') {
+                            this.sortByAsset()
+                            this.changeSortTickerDirection()
+                        } else {
+                            this.sortByHolding()
+                            this.changeSortHoldingDirection()
+                        }
+                    }
+                })
             })
         }
     },
@@ -138,8 +166,8 @@ export default {
                 if (amount.toString().substring(0, 1) === '-') {
                     return '-$' + amount.toFixed(2).toString().substring(1)
                 }
+                return '$' + amount.toFixed(2)
             }
-            return '$' + amount.toFixed(2)
         },
         sortByAsset() {
             this.portfolio.assets.sort(function(a,b) {
@@ -150,6 +178,7 @@ export default {
                     return ( ( a.ticker.ticker == b.ticker.ticker ) ? 0 : ( ( a.ticker.ticker < b.ticker.ticker ) ? 1 : -1 ) )
                 }
             }.bind(this))
+            localStorage.setItem('sortBy', 'asset')
         },
         sortByHolding() {
             this.portfolio.assets.sort(function(a,b) {
@@ -160,6 +189,7 @@ export default {
                     return ( ( a.position_worth == b.position_worth ) ? 0 : ( ( a.position_worth < b.position_worth ) ? 1 : -1 ) )
                 }
             }.bind(this))
+            localStorage.setItem('sortBy', 'holding')
         },
         changeSortTickerDirection() {
             if (this.sortTicker == 'asc') {
@@ -194,6 +224,6 @@ export default {
     },
     components: {
         Modal: Modal
-    },
+    }
 }
 </script>

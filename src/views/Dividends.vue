@@ -1,10 +1,10 @@
 <template>
     <div class="text-center">
-        <h1 class="text-lg text-orange-500 mb-5">Calendar</h1>
+        <h1 class="text-lg text-brown mb-5">Calendar</h1>
         <Calendar class="dark:dark dark:text-white" :attributes=attributes is-expanded />
     </div>
     <div class="text-center my-10">
-        <h1 class="text-lg text-orange-500 mb-5">Upcoming</h1>
+        <h1 class="text-lg text-brown mb-5">Upcoming</h1>
         <table class="table-auto w-full" v-if="upcomingDividends.length">
             <thead>
                 <tr>
@@ -28,7 +28,7 @@
         </table>
     </div>
     <div class="text-center my-10">
-        <h1 class="text-lg text-orange-500 mb-5">Received</h1>
+        <h1 class="text-lg text-brown mb-5">Received</h1>
         <table class="table-auto w-full" v-if="receivedDividends.length">
             <thead>
                 <tr>
