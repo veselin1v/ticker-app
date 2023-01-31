@@ -8,7 +8,7 @@
             leave-to-class="scale-0"
             >
             <div
-                class="bg-white w-[90%] xl:w-auto border-t-8 shadow-lg py-5 px-10 flex flex-col items-center relative rounded-lg"
+                class="dark w-[90%] xl:w-auto shadow-lg py-5 px-10 flex flex-col items-center relative rounded-lg"
                 :class="{
                     'border-red-500': type == 'error',
                     'border-lime-500': type == 'success',
@@ -22,7 +22,7 @@
                 <icon-attention-circle class="mt-5 mb-10 w-20 fill-red-500" v-if="type == 'confirm'" />
                 <icon-spinner class="mt-5 mb-2 w-14 stroke-red-500" v-if="type == 'wait'" />
                 <div
-                    class="mb-5 w-[250px] xl:w-[350px] text-center text-gray-600"
+                    class="mb-5 w-[250px] xl:w-[350px] text-center text-white"
                     :class="[type == 'wait' ? 'text-sm xl:text-base' : 'text-base xl:text-xl']"
                     >
                     {{ message }}
@@ -31,7 +31,7 @@
                     <button
                         class="px-6 py-2 text-white text-sm xl:text-base transition-colors duration-600"
                         :class="{
-                            'bg-red-500 hover:bg-red-600': type == 'error',
+                            'dark border border-white rounded': type == 'error',
                             'bg-lime-500 hover:bg-lime-600': type == 'success',
                             'bg-red-500 hover:bg-red-600': type == 'confirm'
                             }"

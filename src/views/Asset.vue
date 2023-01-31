@@ -8,7 +8,7 @@
                 <label>Trade</label>
                 <select v-model="tradeData.trade" class="dark:dark" required>
                     <option value="buy">buy</option>
-                    <option value="sell">sell</option>
+                    <option value="sell" v-if="asset.quantity > 0">sell</option>
                 </select>
             </div>
             <div class="input-group text-white">
@@ -25,10 +25,10 @@
         </form>
     </Modal>
     <icon-chevron-left class="fill-white w-2" @click="$router.push({ name: 'portfolio' })" />
-    <div class="text-center mt-5">
+    <div class="text-center mt-5" v-if="asset && Object.keys(asset).length !== 0">
         <h1 class="text-brown text-xl">{{ asset.ticker }}</h1>
     </div>
-    <div class="dark:text-white flex justify-between border-y py-4 my-10">
+    <div class="dark:text-white flex justify-between border-y py-4 my-10" v-if="asset && Object.keys(asset).length !== 0">
         <div class="flex flex-col gap-1">
             <div class="flex justify-between">
                 <span class="mr-3">Invested:</span>
@@ -68,7 +68,7 @@
                 </th>
                 <th class="dark:text-white">
                     <div class="flex justify-end">
-                        <span>Quantity</span>
+                        <span>Amount</span>
                     </div>
                 </th>
             </tr>

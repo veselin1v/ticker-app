@@ -42,7 +42,7 @@
         <div class="text-center">
             <h1 class="text-brown text-xl">{{ portfolio.name }}</h1>
         </div>
-        <div class="dark:text-white flex justify-between border-y py-4 my-8">
+        <div class="dark:text-white flex justify-between border-y py-4 my-8" v-if="portfolio.assets && portfolio.assets.length">
             <div class="flex flex-col gap-1">
                 <div class="flex justify-between">
                     <span class="mr-3">Equity:</span>
@@ -102,7 +102,7 @@
             </tbody>
         </table>
         <div class="fixed bottom-28 left-1/2 -translate-x-1/2 whitespace-nowrap">
-            <button v-if="Object.keys(portfolio).length === 0" class="track-btn text-xl" @click="showPortfolioModal = true">Add new porftolio</button>
+            <button v-if="Object.keys(portfolio).length === 0" class="track-btn text-lg" @click="showPortfolioModal = true">Add new porftolio</button>
             <button v-else class="track-btn text-lg" @click="showAssetModal = true">Add asset</button>
         </div>
     </div>
@@ -170,15 +170,17 @@ export default {
             }
         },
         sortByAsset() {
-            this.portfolio.assets.sort(function(a,b) {
+            if (this.portfolio.assets && this.portfolio.assets.length) {
+                this.portfolio.assets.sort(function(a,b) {
                 if (this.sortTicker == 'asc') {
                     return ( ( a.ticker.ticker == b.ticker.ticker ) ? 0 : ( ( a.ticker.ticker > b.ticker.ticker ) ? 1 : -1 ) )
                 }
                 if (this.sortTicker == 'desc') {
                     return ( ( a.ticker.ticker == b.ticker.ticker ) ? 0 : ( ( a.ticker.ticker < b.ticker.ticker ) ? 1 : -1 ) )
                 }
-            }.bind(this))
-            localStorage.setItem('sortBy', 'asset')
+                }.bind(this))
+                localStorage.setItem('sortBy', 'asset')
+            }
         },
         sortByHolding() {
             this.portfolio.assets.sort(function(a,b) {
