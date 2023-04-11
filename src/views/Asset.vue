@@ -26,10 +26,10 @@
     </Modal>
     <icon-chevron-left class="fill-white w-2" @click="$router.push({ name: 'portfolio' })" />
     <div class="text-center mt-5" v-if="asset && Object.keys(asset).length !== 0">
-        <h1 class="text-brown text-xl">{{ asset.ticker }}</h1>
+        <h1 class="text-brown text-xl">{{ asset.ticker.ticker }}</h1>
     </div>
     <div class="dark:text-white flex justify-between border-y py-4 my-10" v-if="asset && Object.keys(asset).length !== 0">
-        <div class="flex flex-col gap-1">
+        <div class="flex flex-col gap-1 mr-4">
             <div class="flex justify-between">
                 <span class="mr-3">Invested:</span>
                 <span>${{ asset.invested }}</span>
@@ -55,6 +55,10 @@
             <div class="flex justify-between">
                 <span class="mr-3">ROI:</span>
                 <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi != null ? asset.roi.toFixed(2) : null }}%</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="mr-3">Dividend yield:</span>
+                <span>{{ asset.ticker.dividend_yield }}%</span>
             </div>
         </div>
     </div>

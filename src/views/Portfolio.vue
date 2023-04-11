@@ -52,6 +52,10 @@
                     <span class="mr-3">Invested:</span>
                     <span>${{ portfolio.invested }}</span>
                 </div>
+                <div class="flex justify-between">
+                    <span class="mr-3">Annual dividend:</span>
+                    <span>${{ portfolio.annual_dividend }}</span>
+                </div>
             </div>
             <div class="flex flex-col gap-1">
                 <div class="flex justify-between">
@@ -61,6 +65,10 @@
                 <div class="flex justify-between">
                     <span class="mr-3">ROI:</span>
                     <span :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi != null ? portfolio.roi.toFixed(2) : null }}%</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="mr-3">Dividend yield:</span>
+                    <span>{{ portfolio.dividend_yield }}%</span>
                 </div>
             </div>
         </div>
@@ -82,16 +90,16 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="asset in portfolio.assets" @click="$router.push({ name: 'assets', params: { id: asset.id } })">
+                <tr v-for="asset in portfolio.assets" :key="asset.id" @click="$router.push({ name: 'assets', params: { id: asset.id } })">
                     <td>
                         <ul>
-                            <li class="dark:text-white">{{ asset.ticker.ticker }}</li>
+                            <li class="dark:text-white">{{ asset.ticker.ticker }} <span class="text-[10px]" v-if="asset.ticker.dividend_yield">(DY: {{ asset.ticker.dividend_yield.toFixed(2) }} %)</span></li>
                             <li class="text-xs dark:text-white">{{ asset.quantity }} shares</li>
                         </ul>
                     </td>
                     <td class="text-right">
                         <ul>
-                            <li class="dark:text-white">${{ asset.position_worth }}</li>
+                            <li class="dark:text-white">${{ asset.position_worth.toFixed(2) }}</li>
                             <li class="text-xs">
                                 <span :class="[asset.profit > 0 ? 'green' : 'red']">{{ formatAmount(asset.profit) }}</span><span class="gray mx-1">|</span>
                                 <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi.toFixed(2) }}%</span>
