@@ -76,7 +76,7 @@
             </tr>
         </thead>
         <tbody>
-            <tr v-for="trade in asset.trades">
+            <tr v-for="trade in asset.trades" :key="trade">
                 <td>
                     <ul>
                         <li :class="[trade.trade == 'buy' ? 'green' : 'red']">{{ trade.trade }}</li>
