@@ -43,7 +43,7 @@
             <h1 class="text-brown text-xl">{{ portfolio.name }}</h1>
         </div>
         <div class="dark:text-white flex justify-between border-y py-4 my-8" v-if="portfolio.assets && portfolio.assets.length">
-            <div class="flex flex-col gap-1">
+            <div class="w-full">
                 <div class="flex justify-between">
                     <span class="mr-3">Equity:</span>
                     <span>${{ portfolio.equity }}</span>
@@ -53,18 +53,16 @@
                     <span>${{ portfolio.invested }}</span>
                 </div>
                 <div class="flex justify-between">
-                    <span class="mr-3">Annual dividend:</span>
-                    <span>${{ portfolio.annual_dividend }}</span>
-                </div>
-            </div>
-            <div class="flex flex-col gap-1">
-                <div class="flex justify-between">
                     <span class="mr-3">Profit:</span>
                     <span :class="[portfolio.profit > 0 ? 'green' : 'red']">{{ formatAmount(portfolio.profit) }}</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="mr-3">ROI:</span>
                     <span :class="[portfolio.roi > 0 ? 'green' : 'red']">{{ portfolio.roi != null ? portfolio.roi.toFixed(2) : null }}%</span>
+                </div>
+                <div class="flex justify-between">
+                    <span class="mr-3">Annual dividend:</span>
+                    <span>${{ portfolio.annual_dividend }}</span>
                 </div>
                 <div class="flex justify-between">
                     <span class="mr-3">Dividend yield:</span>

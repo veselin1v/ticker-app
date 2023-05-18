@@ -2,7 +2,7 @@
     <Modal v-if="showTradeModal" @close-modal="closeTradeModal" title="Add new trade">
         <form @submit.prevent="storeTrade(tradeData);closeTradeModal()">
             <div class="text-center">
-                <h1 class="text-brown text-xl">{{ asset.ticker }}</h1>
+                <h1 class="text-brown text-xl">{{ asset.ticker.ticker }}</h1>
             </div>
             <div class="input-group text-white">
                 <label>Trade</label>
@@ -29,21 +29,11 @@
         <h1 class="text-brown text-xl">{{ asset.ticker.ticker }}</h1>
     </div>
     <div class="dark:text-white flex justify-between border-y py-4 my-10" v-if="asset && Object.keys(asset).length !== 0">
-        <div class="flex flex-col gap-1 mr-4">
+        <div class="w-full">
             <div class="flex justify-between">
                 <span class="mr-3">Invested:</span>
-                <span>${{ asset.invested }}</span>
+                <span>${{ asset.invested.toFixed(2) }}</span>
             </div>
-            <div class="flex justify-between">
-                <span class="mr-3">Position worth:</span>
-                <span>${{ asset.position_worth }}</span>
-            </div>
-            <div class="flex justify-between">
-                <span class="mr-3">Average price:</span>
-                <span>${{ asset.average_price }}</span>
-            </div>
-        </div>
-        <div class="flex flex-col gap-1">
             <div class="flex justify-between">
                 <span class="mr-3">Quantity:</span>
                 <span>{{ asset.quantity }}</span>
@@ -55,6 +45,14 @@
             <div class="flex justify-between">
                 <span class="mr-3">ROI:</span>
                 <span :class="[asset.roi > 0 ? 'green' : 'red']">{{ asset.roi != null ? asset.roi.toFixed(2) : null }}%</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="mr-3">Position worth:</span>
+                <span>${{ asset.position_worth.toFixed(2) }}</span>
+            </div>
+            <div class="flex justify-between">
+                <span class="mr-3">Average price:</span>
+                <span>${{ asset.average_price.toFixed(2) }}</span>
             </div>
             <div class="flex justify-between">
                 <span class="mr-3">Dividend yield:</span>
@@ -87,7 +85,7 @@
                 </td>
                 <td class="text-right">
                     <ul>
-                        <li class="dark:text-white">${{ trade.total_price }}</li>
+                        <li class="dark:text-white">${{ trade.total_price.toFixed(2) }}</li>
                         <li class="text-xs dark:text-white">{{ trade.quantity }} x ${{ trade.price_per_share }}</li>
                     </ul>
                 </td>

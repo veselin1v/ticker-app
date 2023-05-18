@@ -1,11 +1,24 @@
 <template>
-    <div>
-        <h1>Dashboard</h1>
+    <div class="text-center">
+        <h1 class="text-lg text-brown mb-5">Positions</h1>
+        <table class="table-auto w-full" v-if="assets.length">
+            <thead>
+                <tr>
+                    <th class="dark:text-white pt-0">Asset</th>
+                    <th class="text-right dark:text-white pt-0">Date</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="asset in assets" :key="asset">
+                    <td class="text-white">{{ asset.ticker.ticker }}</td>
+                </tr>
+            </tbody>
+        </table>
     </div>
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 export default {
     data() {
         return {
@@ -20,9 +33,13 @@ export default {
                 }
             })
         }
+        this.getAssets()
+    },
+    computed: {
+        ...mapGetters(['assets'])
     },
     methods: {
-        ...mapActions(['getPortfolio'])
+        ...mapActions(['getPortfolio', 'getAssets'])
     }
 }
 </script>
