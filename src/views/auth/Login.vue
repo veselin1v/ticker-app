@@ -31,8 +31,8 @@ export default {
     data() {
         return {
             credentials: {
-                email: 'vesko@gmail.com',
-                password: 'password',
+                email: '',
+                password: '',
                 remember: false
             }
         }
