@@ -6,6 +6,5 @@ export default defineConfig({
   plugins: [vue()],
   build: {
     emptyOutDir: false,
-  },
-  base: '/ticker-app/'
+  }
 })
