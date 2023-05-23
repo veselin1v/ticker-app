@@ -7,5 +7,5 @@ export default defineConfig({
   build: {
     emptyOutDir: false,
   },
-  base: '/ticker-build/'
+  base: '/ticker-app/'
 })
